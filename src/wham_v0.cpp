@@ -1285,7 +1285,7 @@ Type objective_function<Type>::operator() ()
   }
   REPORT(pred_waa); // print predicted waa matrix	  
   REPORT(nll_waa);
-
+  
   // --------------------------------------------------------------------------
   // Calculate mortality (M, F, then Z)
   // Natural mortality process model
@@ -2566,6 +2566,17 @@ Type objective_function<Type>::operator() ()
     REPORT(log_index_sig_scale);
   }
 
+  if(weight_model!=1){
+    // If smoothing the WAA matrix report it
+    matrix<Type> pred_waa_ssb(n_years_model + n_years_proj, n_ages); //
+    for(int y = 0; y < n_years_model + n_years_proj; y++) {
+      for(int a = 0; a < n_ages; a++) {
+	pred_waa_ssb(y,a)= pred_waa(waa_pointer_ssb-1,y,a);
+      }
+    }
+    REPORT(pred_waa_ssb);
+    ADREPORT(pred_waa_ssb);
+  }  
   return nll;
 }
 
