@@ -1299,10 +1299,13 @@ Type objective_function<Type>::operator() ()
 
   vector<Type> log_Fbar = log(Fbar);
   matrix<Type> log_NAA_rep = log(NAA.array());
-
+  vector<Type> recruits=NAA.col(0);
+  ADREPORT(recruits);
+  REPORT(recruits)
   REPORT(NAA);
   REPORT(pred_NAA);
   REPORT(SSB);
+  ADREPORT(SSB);
   REPORT(selAA);
   REPORT(MAA);
   REPORT(F);
